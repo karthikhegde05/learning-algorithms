@@ -24,8 +24,8 @@ void merge(int* a, int p, int q, int r){
 	int n1 = q-p+1;
 	int n2 = r-q;
 	//creating l and r arrays
-	int* left = (int*)malloc((n1)*sizeof(int));
-	int* right = (int*)malloc((n2)*sizeof(int));
+	int* left = (int*)malloc(n1*sizeof(int));
+	int* right = (int*)malloc(n2*sizeof(int));
 	for(i=0; i<n1; i++)
 		left[i] = a[p+i-1];
 	for(j=0; j<n2; j++)
@@ -33,8 +33,9 @@ void merge(int* a, int p, int q, int r){
 	
 	i=1;
 	j=1;
-	for(k=p; k<=r; k++){
-		//if(i<n1 && j<n2){	
+	k = p;
+	while(i<n1 && j<n2){	
+	
 			if(left[i] <= right[j]){
 			a[k] = left[i];
 			i++;
@@ -43,19 +44,22 @@ void merge(int* a, int p, int q, int r){
 			a[k] = right[j];
 			j++;
 			}
+	k++;
+	}
 		
-	/*	else if(i==n1 && j<n2){
+	while(i==n1 && j<n2){
 		a[k] = right[j];
+		k++;
 		j++;
 		}
-		else if(j==n2 && i<n1){
+	while(j==n2 && i<n1){
 		a[k] = left[i];
+		k++;
 		i++;
 		}
-	*/			
-	}	
-//	free(left);
-//	free(right);
+				
+	free(left);
+	free(right);
 }
 
 
