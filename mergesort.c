@@ -27,12 +27,12 @@ void merge(int* a, int p, int q, int r){
 	int* left = (int*)malloc(n1*sizeof(int));
 	int* right = (int*)malloc(n2*sizeof(int));
 	for(i=0; i<n1; i++)
-		left[i] = a[p+i-1];
+		left[i] = a[p+i];
 	for(j=0; j<n2; j++)
-		right[j] = a[q+j];
+		right[j] = a[q+1+j];
 	
-	i=1;
-	j=1;
+	i=0;
+	j=0;
 	k = p;
 	while(i<n1 && j<n2){	
 	
@@ -57,7 +57,6 @@ void merge(int* a, int p, int q, int r){
 		k++;
 		i++;
 		}
-				
 	free(left);
 	free(right);
 }
