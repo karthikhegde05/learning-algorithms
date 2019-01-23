@@ -11,7 +11,7 @@ void push(struct stackNode* top, int x);
 int pop(struct stackNode* top);
 
 int main(){
-	struct stackNode* S = newnode(10);
+	struct stackNode* S = NULL;
 	push(S, 25);
 	push(S, 30);
 	push(S, 45);
@@ -38,7 +38,8 @@ void push(struct stackNode* top, int x){
 
 //pop function
 int pop(struct stackNode* top){
-	struct stackNode* temp = top;
+	struct stackNode* temp = (struct stackNode*)malloc(sizeof(struct stackNode));
+	temp = top;
 	top = top->next;
 	int x = temp->data;
 	free(temp);

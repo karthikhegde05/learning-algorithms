@@ -1,7 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include"stack.h"
 
-struct Stack{
+/*struct Stack{
 	int top;
 	int capacity;//length of the array
 	int* array;
@@ -25,7 +26,7 @@ int main(){
 	int d = pop(St);
 	printStack(St);
 	return 0;
-}
+}*/
 
 //function to create a stack of given capacity
 //stack as 0
