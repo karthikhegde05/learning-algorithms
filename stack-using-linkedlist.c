@@ -6,18 +6,23 @@ struct stackNode{
 	struct stackNode* next;
 };
 
-struct stackNode* createNode(int x);
-void push(struct stackNode* top, int x);
-int pop(struct stackNode* top);
+//struct stackNode* createNode(int x);
+void push(struct stackNode** top, int x);
+int pop(struct stackNode** top);
 void printStack(struct stackNode* top);
 int isEmpty(struct stackNode* top);
 
 int main(){
 	struct stackNode* St = NULL;
-	push(St, 25);
-	push(St, 30);
-	push(St, 45);
-	printf("%d\n", pop(St));
+	push(&St, 25);
+	push(&St, 30);
+	push(&St, 45);
+	printStack(St);
+	printf("\n%d\n", pop(&St));
+	push(&St, 50);
+	printStack(St);
+	printf("\n%d\n", pop(&St));
+	printStack(St);
 	return 0;
 }
 
@@ -29,26 +34,18 @@ int main(){
 }*/
 
 //push function
-void push(struct stackNode* top, int x){
+void push(struct stackNode** top, int x){
 	struct stackNode* temp = (struct stackNode*)malloc(sizeof(struct stackNode));
-	if(top == NULL){
 	temp->data = x;
-	temp->next = NULL;
-	top = temp;
-	}
-	else{
-	temp->data = x;
-	temp->next = top;
-	top = temp;
-	}
-		
+	temp->next = *top;
+	*top = temp;//changing top hence call by reference: double-pointer	
 }
 
 //pop function
-int pop(struct stackNode* top){
+int pop(struct stackNode** top){
 	struct stackNode* temp = (struct stackNode*)malloc(sizeof(struct stackNode));
-	temp = top;
-	top = temp->next;
+	temp = *top;
+	*top = temp->next;//changing top hence call by reference: double-pointer
 	int x = temp->data;
 	temp->next = NULL;
 	free(temp);
