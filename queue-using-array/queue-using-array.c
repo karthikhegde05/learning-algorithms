@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#include"queue-using-array.h"
+/*
 struct Queue{ //FIFO
 	int head;//point to the front element
 	int tail;//point to the rear element 
@@ -14,10 +15,10 @@ int isEmpty(struct Queue*);
 int isFull(struct Queue*);
 void enqueue(struct Queue*, int);
 int dequeue(struct Queue*);
-void printQueue(struct Queue*);
+void printQueue(struct Queue*);*/
 
 //main for checking validity of every function
-int main(){
+/*int main(){
 	struct Queue* Q = createQueue(10);
 	printf("%d\n", isEmpty(Q));
 	enqueue(Q, 5);
@@ -44,7 +45,7 @@ int main(){
 	printQueue(Q);
 	printf("%d\n", isFull(Q));
 	return 0;	
-}
+}*/
 
 //creates the queue
 struct Queue* createQueue(int capacity){
