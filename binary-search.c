@@ -8,7 +8,7 @@ int main(){
 	for(i=0; i<n; i++)
 		scanf("%d", &a[i]);
 	printf("%d\n", Binary_Search(a, 0, n-1, 5));
-
+	printf("%d\n", Sum_of_two(a, n, 5));
 	return 0;
 }
 

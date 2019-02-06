@@ -2,10 +2,7 @@
 
 int Sum_of_two(int* arr, int size, int x);//misnomer the function is a solution to aproblem in the textbook->find the existence of two elements in a set of integers such that their sum is the given integer x
 //here True = 0 and False = -1
-int main(){
-	printf("%d\n", Sum_of_two(a, n, 5));
-	return 0;
-}
+//used with binary-search.c visible in Sum_of_two.out
 int Sum_of_two(int* arr, int size, int x){
 	int i, n = size;
 	for(i=0; i<n; i++){
