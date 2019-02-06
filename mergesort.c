@@ -16,6 +16,7 @@ int main(){
 	for(i=0; i<size; i++)
 		printf("%d ", a[i]);
 	printf("\n");
+	return 0;
 }
 
 
