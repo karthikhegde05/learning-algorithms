@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<time.h>
+#include<time.h>//we don't need it: only for seed(time(NULL))
 
 void Swap(int*, int*);
 int Partition(int* A, int i, int j);

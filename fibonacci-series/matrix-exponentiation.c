@@ -4,10 +4,10 @@
 void Power(int A[][2], int N);
 void Matrix_Multiply(int A1[][2], int A2[][2]);
 //void Power(int A[][2], int N);
-int Fib(int n);
+int Fib(int n);//fib(n) = (fib(n-1) + fib(n-2))%1000
 
 int main(){
-	printf("%d\n", Fib(6));
+	printf("%d\n", Fib(10));
 	return 0;
 }
 
@@ -57,5 +57,5 @@ int Fib(int n){
 			{1, 0}};
 	
 	Power(A, n-1);
-	return A[0][0];
+	return A[0][0] % 1000;
 }
