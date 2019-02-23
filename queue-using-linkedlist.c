@@ -13,7 +13,7 @@ struct Queue{
 struct Queue* createqueue();
 int isEmpty(struct Queue* q);
 void Enqueue(struct Queue* q, int x);//compiler throws a warning due to different pointer type of temp
-int Dequeue(struct Queue* q);// not working properly making the last element as zero
+int Dequeue(struct Queue* q);
 void printList(struct Queue* q);
 
 
@@ -23,8 +23,11 @@ int main(){
 	Enqueue(Que, 10);
 	Enqueue(Que, 15);
 	Enqueue(Que, 20);
+	Enqueue(Que, 45);
+	Enqueue(Que, 55);
 	printList(Que);
 	int x = Dequeue(Que);
+	Dequeue(Que);
 	printList(Que);
 	printf("%d\n", x);
 	return 0;
@@ -60,11 +63,11 @@ void printList(struct Queue* q){
 		printf("is Empty\n");
 		return;
 	}
-	while(temp != q->tail){
+	while(temp != NULL){
 		printf("%d ", temp->data);
 		temp = temp->next;
 	}
-	printf("%d\n", temp->data);
+	printf("\n");
 	free(temp);
 }
 
