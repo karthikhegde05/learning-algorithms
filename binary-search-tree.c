@@ -50,7 +50,7 @@ int main(){
 	int arr[1000], n, i;
 	scanf("%d", &n);
 	for(i=0; i<n; i++)
-		arr[i] = rand()%10;
+		arr[i] = rand()%INT_MAX;
 	MergeSort(arr, 0, n-1);
 	struct node* head = BuildBST(arr, 0, n-1, NULL);
 	PreOrder(head);
