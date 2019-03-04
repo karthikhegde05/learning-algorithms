@@ -1,9 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<limits.h>
+//This rebuilds the tree given inorder and preorder arrays.
+//works properly
 
-
-//the entire code is working properly except for some warnings while compilation but the output is correct;
 struct node{//Binary Search Tree
 	int key;
 	struct node* rc;//right-child
@@ -13,26 +12,9 @@ struct node{//Binary Search Tree
 	int l;//level
 };
 
-
-struct queueNode{
-	struct node* data;
-	int* next;
-};
-
-
-struct Queue{
-	struct queueNode *head, *tail;
-};
-
-
-struct Queue* createqueue();
-int isEmpty(struct Queue* q);
-void Enqueue(struct Queue* q, struct node* x);//compiler throws a warning due to different pointer type of temp
-struct node* Dequeue(struct Queue* q);
-void printList(struct Queue* q);
-
-
+void Swap(int* a, int* b);
 struct node* createNode();
+int Binary_Search(int*, int , int, int);
 void Merge(int* A, int i, int j, int k);
 void MergeSort(int* A, int i, int j);
 struct node* BuildBST(int* A, int i, int j, struct node* head);
@@ -42,86 +24,29 @@ void PostOrder(struct node* head);
 void InOrder(struct node* head);
 void Level(struct node* head);
 void Height(struct node* head);
-void LevelOrder(struct node* head, struct Queue* queue);
-
+struct node* Tree_from_order(int* P, int* I, int i, int j, struct node* head);
 
 
 int main(){
-	int arr[1000], n, i;
+	int pre[1000], in[1000], n, i;
 	scanf("%d", &n);
 	for(i=0; i<n; i++)
-		arr[i] = rand()%INT_MAX;
-	MergeSort(arr, 0, n-1);
-	struct node* head = BuildBST(arr, 0, n-1, NULL);
-	PreOrder(head);
+		scanf("%d", &pre[i]);
+	for(i=0; i<n; i++)
+		scanf("%d", &in[i]);
+	struct node* root = Tree_from_order(pre, in, 0, n-1, NULL);
+	PreOrder(root);
 	printf("\n");
-	PostOrder(head);
-	printf("\n");
-	InOrder(head);
-	printf("\n");
-	Level(head);
-	printf("\n");
-	Height(head);
-	printf("\n");
-	struct Queue* queue = createqueue();
-	LevelOrder(head, queue);
-	printf("\n");
-	return 0;	
+	InOrder(root);
+	printf("\n");		
+	return 0;
 }
 
-
-struct Queue* createqueue(){
-	struct Queue* new = (struct Queue*)malloc(sizeof(struct Queue));
-	new->head = NULL;
-	new->tail = NULL;
-	return new;
+void Swap(int* a, int* b){
+	int temp = *a;
+	*a = *b;
+	*b = temp;
 }
-
-int isEmpty(struct Queue* q){
-	return (q->head == NULL);
-}
-
-void Enqueue(struct Queue* q, struct node* x){
-	struct queueNode* temp = (struct queueNode*)malloc(sizeof(struct queueNode));
-	temp->data = x;
-	temp->next = NULL;
-	if(isEmpty(q)){
-		q->head = q->tail = temp;
-		return;
-	}
-	q->tail->next = temp;
-	q->tail = q->tail->next;
-}
-
-void printList(struct Queue* q){
-	struct queueNode* temp;
-	temp = q->head;
-	if(isEmpty(q)){
-		printf("is Empty\n");
-		return;
-	}
-	while(temp != NULL){
-		printf("%d ", temp->data);
-		temp = temp->next;
-	}
-	printf("\n");
-	free(temp);
-}
-
-struct node* Dequeue(struct Queue* q){
-	struct node* x = (struct node*)malloc(sizeof(struct node));
-	if(isEmpty(q)){
-		printf("isEmpty\n");
-		return;
-	}
-	struct queueNode* temp;
-	x = q->head->data;
-	temp = q->head;
-	q->head = q->head->next;
-	free(temp);
-	return x;
-}
-
 
 struct node* createNode(){
 	struct node* Node = (struct node*)malloc(sizeof(struct node));
@@ -131,6 +56,21 @@ struct node* createNode(){
 	Node->p = NULL;
 	Node->h = 0;
 	Node->l = 0;
+}
+
+
+int Binary_Search(int* arr, int i, int j, int x){
+	if(j>=i){
+		int m = (i+j)/2;
+		if(arr[m] == x)
+			return m;
+		else if(arr[m]>x)
+			Binary_Search(arr, i, m-1, x);
+		else
+			Binary_Search(arr, m+1, j, x);
+	}
+	else
+		return 0;
 }
 
 
@@ -252,18 +192,29 @@ void Height(struct node* head){
 	}
 }
 
-void LevelOrder(struct node* head, struct Queue* queue){
-	struct node* temp = head;
-	while(temp != NULL){
-		Visit(temp);
-		if(temp->lc != NULL)
-			Enqueue(queue, temp->lc);
-		if(temp->rc != NULL)
-			Enqueue(queue, temp->rc);
-		if(isEmpty(queue))
-			break;
-		temp = Dequeue(queue);
-	}	
+struct node* Tree_from_order(int* P, int* I, int i, int j, struct node* head){
+	struct node* x;
+	int k, c;
+	if(i<j){	
+		k = Binary_Search(I, i, j, P[i]);
+		x = createNode();
+		x->key = P[i];
+		x->p = head;
+		for(c=i; c<k; c++)
+			Swap(&P[c], &P[c+1]);
+		x->lc = Tree_from_order(P, I, i, k-1, x);
+		if(k != j)
+			x->rc = Tree_from_order(P, I, k+1, j, x);
+		else 
+			x->rc = NULL;
+	}
+	else if(i==j){
+		x = createNode();
+		x->key = P[i];
+		x->p = head;
+		x->lc = x->rc = NULL;
+	}
+	return x;
 }
 
 
